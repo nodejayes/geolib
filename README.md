@@ -1,0 +1,2 @@
+# geolib
+Go Geometry Library
