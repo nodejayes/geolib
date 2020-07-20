@@ -7,8 +7,8 @@ import (
 
 func TestReprojectPoint(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
-	WGS84 := "EPSG:4326"
-	WebMercator := "EPSG:3857"
+	WGS84 := GetProjection(4326)
+	WebMercator := GetProjection(3857)
 	x, y, z, err := ReprojectPoint(12, 50, 0, WGS84, WebMercator)
 	g.Expect(err).To(gomega.BeNil())
 	g.Expect(x).To(gomega.Equal(1335833.8895192828))
@@ -18,8 +18,8 @@ func TestReprojectPoint(t *testing.T) {
 
 func TestReproject3dPoint(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
-	WGS84 := "EPSG:4326"
-	WebMercator := "EPSG:3857"
+	WGS84 := GetProjection(4326)
+	WebMercator := GetProjection(3857)
 	x, y, z, err := ReprojectPoint(12, 50, 5, WGS84, WebMercator)
 	g.Expect(err).To(gomega.BeNil())
 	g.Expect(x).To(gomega.Equal(1335833.8895192828))
