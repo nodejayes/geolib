@@ -2,7 +2,6 @@ package reference_system
 
 import (
 	"bytes"
-	"errors"
 	"github.com/nodejayes/geolib/pkg/proj4"
 	"log"
 	"strconv"
@@ -40,25 +39,10 @@ func (rf *ReferenceSystem) GetSrId() int {
 
 func (rf *ReferenceSystem) TransformPoints(target int, points [][]float64) ([][]float64, error) {
 	var tmp [][]float64
-	for _, p := range points {
-		switch len(p) {
-		case 3:
-			tX, tY, tZ, projErr := proj4.ReprojectPoint(p[0], p[1], p[2], proj4.GetProjection(rf.GetSrId()), proj4.GetProjection(target))
-			if projErr != nil {
-				return nil, projErr
-			}
-			tmp = append(tmp, []float64{tX, tY, tZ})
-			break
-		case 2:
-			tX, tY, _, projErr := proj4.ReprojectPoint(p[0], p[1], 0.0, proj4.GetProjection(rf.GetSrId()), proj4.GetProjection(target))
-			if projErr != nil {
-				return nil, projErr
-			}
-			tmp = append(tmp, []float64{tX, tY})
-			break
-		default:
-			return nil, errors.New("invalid Point Length " + strconv.FormatInt(int64(len(p)), 10))
-		}
+	var err error
+	tmp, err = proj4.ReprojectPoints(points, proj4.GetProjection(rf.GetSrId()), proj4.GetProjection(target))
+	if err != nil {
+		return nil, err
 	}
 	return tmp, nil
 }
