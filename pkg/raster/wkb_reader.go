@@ -29,7 +29,7 @@ func ReadRasterWkb(b []byte, workers int) (Raster, error) {
 	return readHeader(wkb, endiannes, raster)
 }
 
-// Determine the endiannes of the conversion
+// Determine the endiannes of the definitions
 //
 // +---------------+-------------+------------------------------+
 // | endiannes     | byte        | 1:ndr/little endian          |
@@ -41,7 +41,7 @@ func readEndiannes(wkb io.Reader) (uint8, error) {
 	return endiannesValue, err
 }
 
-// Read the conversion header data.
+// Read the definitions header data.
 //
 // +---------------+-------------+------------------------------+
 // | version       | uint16      | format version (0 for this   |
