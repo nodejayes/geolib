@@ -2,9 +2,11 @@ package measure
 
 import (
 	"github.com/nodejayes/geolib/pkg/definitions"
+	"github.com/nodejayes/geolib/pkg/vector_math"
 	"math"
 )
 
+// SphericalTriangle Distance Calculation to calculate the Distance in a Planar Coordinate System
 func SphericalTriangle(p1 []float64, p2 []float64) float64 {
 	lat1 := p1[1] * definitions.DegToRad
 	lon1 := p1[0] * definitions.DegToRad
@@ -13,6 +15,7 @@ func SphericalTriangle(p1 []float64, p2 []float64) float64 {
 	return (definitions.EarthRadius / 1000) * math.Acos(math.Sin(lat1)*math.Sin(lat2)+math.Cos(lat1)*math.Cos(lat2)*math.Cos(lon2-lon1))
 }
 
+// the Haversine Distance Calculation to calculate the Distance in a Planar Coordinate System
 func HaversineDistance(p1 []float64, p2 []float64) float64 {
 	lat1 := p1[1]
 	lon1 := p1[0]
@@ -30,10 +33,6 @@ func HaversineDistance(p1 []float64, p2 []float64) float64 {
 	return (definitions.EarthRadius / 1000) * c
 }
 
-func Pythagoras(ax, ay, bx, by float64) float64 {
-	return PythagorasLength(ax-bx, ay-by)
-}
-
-func PythagorasLength(l1, l2 float64) float64 {
-	return math.Sqrt(math.Pow(l1, 2) + math.Pow(l2, 2))
+func Planar(p1 []float64, p2 []float64) float64 {
+	return vector_math.Pythagoras(p1[0], p1[1], p2[0], p2[1])
 }

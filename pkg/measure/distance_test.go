@@ -24,8 +24,8 @@ func TestSphericalTriangle(t *testing.T) {
 	err = shortP2Geom.Transform(3857)
 	g.Expect(err).To(gomega.BeNil())
 	g.Expect(
-		Pythagoras(shortP1Geom.Coordinates[0], shortP1Geom.Coordinates[1], shortP2Geom.Coordinates[0], shortP2Geom.Coordinates[1])).
-		To(gomega.Equal(0.0))
+		Planar(shortP1Geom.Coordinates, shortP2Geom.Coordinates)).
+		To(gomega.Equal(2478.731094304433))
 	// near QGIS Measurement (2318.216871 km)
 	g.Expect(SphericalTriangle(longP1, longP2)).To(gomega.Equal(2317.581202880789))
 	g.Expect(HaversineDistance(longP1, longP2)).To(gomega.Equal(2317.5812028807877))
