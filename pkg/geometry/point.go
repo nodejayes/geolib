@@ -18,8 +18,15 @@ func NewPoint(coordinates Coordinate1D, crs reference_system.ReferenceSystem) *P
 	}
 }
 
+func (ctx *Point) GetCoordinates(data interface{}) {
+	switch d := data.(type) {
+	case *Coordinate1D:
+		*d = append(*d, ctx.Coordinates...)
+	}
+}
+
 func (ctx *Point) Transform(target int) error {
-	transformed, err := ctx.CRS.TransformPoints(target, [][]float64{ctx.Coordinates})
+	transformed, err := ctx.CRS.TransformPoints(target, Coordinate2D{ctx.Coordinates})
 	if err != nil {
 		return err
 	}

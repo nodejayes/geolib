@@ -11,3 +11,13 @@ func NewFeatureCollection(features []*Feature) *FeatureCollection {
 		Features: features,
 	}
 }
+
+func (ctx *FeatureCollection) Transform(target int) error {
+	for _, f := range ctx.Features {
+		err := f.Geometry.Transform(target)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}

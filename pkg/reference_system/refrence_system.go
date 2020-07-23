@@ -40,6 +40,10 @@ func (rf *ReferenceSystem) GetSrId() int {
 func (rf *ReferenceSystem) TransformPoints(target int, points [][]float64) ([][]float64, error) {
 	var tmp [][]float64
 	var err error
+	if target == rf.GetSrId() {
+		// no conversion needed
+		return points, nil
+	}
 	tmp, err = proj4.ReprojectPoints(points, proj4.GetProjection(rf.GetSrId()), proj4.GetProjection(target))
 	if err != nil {
 		return nil, err

@@ -10,7 +10,7 @@ type BoundingBox struct {
 	MaxX float64                          `json:"maxx"`
 	MinY float64                          `json:"miny"`
 	MaxY float64                          `json:"maxy"`
-	Crs  reference_system.ReferenceSystem `json:"crs"`
+	CRS  reference_system.ReferenceSystem `json:"crs"`
 }
 
 func NewBoundingBox(minX, maxX, minY, maxY float64, crs reference_system.ReferenceSystem) *BoundingBox {
@@ -19,7 +19,7 @@ func NewBoundingBox(minX, maxX, minY, maxY float64, crs reference_system.Referen
 		MaxX: maxX,
 		MinY: minY,
 		MaxY: maxY,
-		Crs:  crs,
+		CRS:  crs,
 	}
 }
 
@@ -55,4 +55,20 @@ func (bb *BoundingBox) SnapToGrid(width int) {
 	bb.MinY = math.Floor((math.Floor(bb.MinY)-1)/float64(width)) * float64(width)
 	bb.MaxX = (math.Floor((math.Floor(bb.MaxX)+1)/float64(width)) * float64(width)) + float64(width)
 	bb.MaxY = (math.Floor((math.Floor(bb.MaxY)+1)/float64(width)) * float64(width)) + float64(width)
+}
+
+func (bb *BoundingBox) Transform(target int) error {
+	transformed, err := bb.CRS.TransformPoints(target, [][]float64{
+		{bb.MinX, bb.MinY},
+		{bb.MaxX, bb.MaxY},
+	})
+	if err != nil {
+		return err
+	}
+	bb.MinX = transformed[0][0]
+	bb.MinY = transformed[0][1]
+	bb.MaxX = transformed[1][0]
+	bb.MaxY = transformed[1][1]
+	bb.CRS = reference_system.New(target)
+	return nil
 }
