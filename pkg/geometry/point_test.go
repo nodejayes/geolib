@@ -1,15 +1,21 @@
 package geometry
 
 import (
-	"github.com/nodejayes/geolib/pkg/reference_system"
-	"github.com/onsi/gomega"
 	"testing"
 )
 
 func TestPoint_GetCoordinates(t *testing.T) {
-	g := gomega.NewGomegaWithT(t)
-	pt := NewPoint([]float64{1, 2}, reference_system.New(4326))
-	var coords []float64
-	pt.GetCoordinates(&coords)
-	g.Expect(coords).To(gomega.Equal([]float64{1, 2}))
+	t.Run("Error on invalid coordinate type", func(t *testing.T) {
+		expected := "wrong type given expect []float64"
+		pt := NewPoint([]float64{1, 2}, 4326)
+		var coords [][]float64
+		err := pt.GetCoordinates(&coords)
+		if err == nil {
+			t.Errorf("Point Coordinates was written into [][]float64 expect to return a error")
+			return
+		}
+		if err.Error() != expected {
+			t.Errorf("Wrong Error Message\n%v \nexpect: %v", err.Error(), expected)
+		}
+	})
 }

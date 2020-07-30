@@ -1,6 +1,7 @@
 package geometry
 
 import (
+	"errors"
 	"github.com/nodejayes/geolib/pkg/reference_system"
 )
 
@@ -10,19 +11,21 @@ type Point struct {
 	CRS         reference_system.ReferenceSystem `json:"crs"`
 }
 
-func NewPoint(coordinates Coordinate1D, crs reference_system.ReferenceSystem) *Point {
+func NewPoint(coordinates Coordinate1D, srid int) *Point {
 	return &Point{
 		Type:        PointType,
 		Coordinates: coordinates,
-		CRS:         crs,
+		CRS:         reference_system.New(srid),
 	}
 }
 
-func (ctx *Point) GetCoordinates(data interface{}) {
+func (ctx *Point) GetCoordinates(data interface{}) error {
 	switch d := data.(type) {
 	case *Coordinate1D:
 		*d = append(*d, ctx.Coordinates...)
+		return nil
 	}
+	return errors.New("wrong type given expect []float64")
 }
 
 func (ctx *Point) Transform(target int) error {
