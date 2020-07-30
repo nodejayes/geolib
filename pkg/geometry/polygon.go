@@ -24,7 +24,6 @@ func NewPolygon(coords Coordinate3D, srid int) *Polygon {
 // GetCoordinates write the Coordinates from the Polygon int the given data Variable
 func (ctx *Polygon) GetCoordinates(data interface{}) error {
 	switch d := data.(type) {
-	case Coordinate3D:
 	case *Coordinate3D:
 		*d = append(*d, ctx.Coordinates...)
 		return nil
