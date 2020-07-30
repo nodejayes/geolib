@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Test geometry" type="GoTestRunConfiguration" factoryName="Go Test">
+    <module name="geolib" />
+    <working_directory value="$PROJECT_DIR$/pkg/geometry" />
+    <framework value="gotest" />
+    <kind value="PACKAGE" />
+    <package value="github.com/nodejayes/geolib/pkg/geometry" />
+    <directory value="$PROJECT_DIR$/" />
+    <filePath value="$PROJECT_DIR$/" />
+    <method v="2" />
+  </configuration>
+</component>
