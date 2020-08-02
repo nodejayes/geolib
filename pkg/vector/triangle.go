@@ -2,7 +2,7 @@ package vector
 
 import (
 	"github.com/nodejayes/geolib/pkg/definitions"
-	"github.com/nodejayes/geolib/pkg/vector_math"
+	"github.com/nodejayes/geolib/pkg/vector/vector_math"
 	"math"
 )
 
@@ -18,58 +18,18 @@ func NewTriangle(a []float64, b []float64, c []float64) *Triangle {
 }
 
 // get Point A
-func (ctx *Triangle) A() []float64 {
+func (ctx *Triangle) GetA() []float64 {
 	return ctx.a
 }
 
 // get Point B
-func (ctx *Triangle) B() []float64 {
+func (ctx *Triangle) GetB() []float64 {
 	return ctx.b
 }
 
 // get Point C
-func (ctx *Triangle) C() []float64 {
+func (ctx *Triangle) GetC() []float64 {
 	return ctx.c
-}
-
-// get the Edge from Point C to B
-func (ctx *Triangle) EdgeCB() float64 {
-	return vector_math.Pythagoras(ctx.b[0], ctx.b[1], ctx.c[0], ctx.c[1])
-}
-
-// get the Edge from Point A to C
-func (ctx *Triangle) EdgeAC() float64 {
-	return vector_math.Pythagoras(ctx.c[0], ctx.c[1], ctx.a[0], ctx.a[1])
-}
-
-// get the Edge from Point A to B
-func (ctx *Triangle) EdgeAB() float64 {
-	return vector_math.Pythagoras(ctx.b[0], ctx.b[1], ctx.a[0], ctx.a[1])
-}
-
-// get the Angle opposite of Edge from Point C to B
-func (ctx *Triangle) AngleAlpha() float64 {
-	return vector_math.CosineTheorem(ctx.EdgeCB(), ctx.EdgeAC(), ctx.EdgeAB(), true)
-}
-
-// get the Angle opposite of Edge from Point A to C
-func (ctx *Triangle) AngleBeta() float64 {
-	return vector_math.CosineTheorem(ctx.EdgeAC(), ctx.EdgeAB(), ctx.EdgeCB(), true)
-}
-
-// get the Angle opposite of Edge from Point A to B
-func (ctx *Triangle) AngleGamma() float64 {
-	return vector_math.CosineTheorem(ctx.EdgeAB(), ctx.EdgeAC(), ctx.EdgeCB(), true)
-}
-
-// get the Diameter of the Circle that intersects all 3 Points
-func (ctx *Triangle) Diameter() float64 {
-	return ctx.EdgeAB() / math.Sin(ctx.AngleGamma())
-}
-
-// get the Radius of the Circle that intersects all 3 Points
-func (ctx *Triangle) Radius() float64 {
-	return ctx.Diameter() / 2
 }
 
 // get the Length of all Edges

@@ -3,7 +3,7 @@ package measure
 import (
 	"github.com/nodejayes/geolib/pkg/definitions"
 	"github.com/nodejayes/geolib/pkg/geometry"
-	"github.com/nodejayes/geolib/pkg/vector_math"
+	"github.com/nodejayes/geolib/pkg/vector/vector_math"
 	"math"
 )
 

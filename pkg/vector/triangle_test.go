@@ -1,6 +1,7 @@
 package vector
 
 import (
+	"github.com/nodejayes/geolib/pkg/vector/vector_measure"
 	"github.com/onsi/gomega"
 	"testing"
 )
@@ -19,42 +20,42 @@ func TestTriangle_Method_A(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
 	data := NewTriangle(A, B, C)
 	g.Expect(data).ToNot(gomega.BeNil())
-	g.Expect(data.A()).To(gomega.Equal(A))
+	g.Expect(data.GetA()).To(gomega.Equal(A))
 }
 
 func TestTriangle_Method_B(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
 	data := NewTriangle(A, B, C)
 	g.Expect(data).ToNot(gomega.BeNil())
-	g.Expect(data.B()).To(gomega.Equal(B))
+	g.Expect(data.GetB()).To(gomega.Equal(B))
 }
 
 func TestTriangle_Method_C(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
 	data := NewTriangle(A, B, C)
 	g.Expect(data).ToNot(gomega.BeNil())
-	g.Expect(data.C()).To(gomega.Equal(C))
+	g.Expect(data.GetC()).To(gomega.Equal(C))
 }
 
 func TestTriangle_Method_EdgeAB(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
 	data := NewTriangle(A, B, C)
 	g.Expect(data).ToNot(gomega.BeNil())
-	g.Expect(data.EdgeAB()).To(gomega.Equal(5.0990195135927845))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeAB)).To(gomega.Equal(5.0990195135927845))
 }
 
 func TestTriangle_Method_EdgeAC(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
 	data := NewTriangle(A, B, C)
 	g.Expect(data).ToNot(gomega.BeNil())
-	g.Expect(data.EdgeAC()).To(gomega.Equal(3.605551275463989))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeAC)).To(gomega.Equal(3.605551275463989))
 }
 
 func TestTriangle_Method_EdgeCB(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
 	data := NewTriangle(A, B, C)
 	g.Expect(data).ToNot(gomega.BeNil())
-	g.Expect(data.EdgeCB()).To(gomega.Equal(2.23606797749979))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeCB)).To(gomega.Equal(2.23606797749979))
 }
 
 func TestTriangle_Method_AngleAlpha(t *testing.T) {
@@ -128,9 +129,9 @@ func TestTriangle_ShortestDistance_Negative(t *testing.T) {
 		5692632.47844243,
 	})
 	g.Expect(data).ToNot(gomega.BeNil())
-	g.Expect(data.EdgeAB()).To(gomega.Equal(715.941243046222))
-	g.Expect(data.EdgeAC()).To(gomega.Equal(379.18452498739))
-	g.Expect(data.EdgeCB()).To(gomega.Equal(412.49733501657795))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeAB)).To(gomega.Equal(715.941243046222))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeAC)).To(gomega.Equal(379.18452498739))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeCB)).To(gomega.Equal(412.49733501657795))
 	g.Expect(data.HeightFrom("A")).To(gomega.Equal(292.9317229151599))
 	g.Expect(data.ShortestDistance("A")).To(gomega.Equal(379.18452498739))
 }
@@ -147,9 +148,9 @@ func TestTriangle_ShortestDistance_Positive(t *testing.T) {
 		5692238.19060928,
 	})
 	g.Expect(data).ToNot(gomega.BeNil())
-	g.Expect(data.EdgeAB()).To(gomega.Equal(379.18452498739))
-	g.Expect(data.EdgeAC()).To(gomega.Equal(83.15313577986396))
-	g.Expect(data.EdgeCB()).To(gomega.Equal(407.96910515995535))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeAB)).To(gomega.Equal(379.18452498739))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeAC)).To(gomega.Equal(83.15313577986396))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeCB)).To(gomega.Equal(407.96910515995535))
 	g.Expect(data.HeightFrom("A")).To(gomega.Equal(74.83891952375997))
 	g.Expect(data.ShortestDistance("A")).To(gomega.Equal(74.83891952375997))
 }
@@ -166,9 +167,9 @@ func TestTriangle_ShortestDistance_Negative1(t *testing.T) {
 		5692052.3088027,
 	})
 	g.Expect(data).ToNot(gomega.BeNil())
-	g.Expect(data.EdgeAB()).To(gomega.Equal(83.15313577986396))
-	g.Expect(data.EdgeAC()).To(gomega.Equal(239.84542527868626))
-	g.Expect(data.EdgeCB()).To(gomega.Equal(192.01874835387844))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeAB)).To(gomega.Equal(83.15313577986396))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeAC)).To(gomega.Equal(239.84542527868626))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeCB)).To(gomega.Equal(192.01874835387844))
 	g.Expect(data.HeightFrom("A")).To(gomega.Equal(75.06238598507127))
 	g.Expect(data.ShortestDistance("A")).To(gomega.Equal(83.15313577986396))
 }
@@ -185,9 +186,9 @@ func TestTriangle_ShortestDistance_Negative2(t *testing.T) {
 		5692052.3088027,
 	})
 	g.Expect(data).ToNot(gomega.BeNil())
-	g.Expect(data.EdgeAB()).To(gomega.Equal(83.15313577986396))
-	g.Expect(data.EdgeAC()).To(gomega.Equal(239.84542527868626))
-	g.Expect(data.EdgeCB()).To(gomega.Equal(192.01874835387844))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeAB)).To(gomega.Equal(83.15313577986396))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeAC)).To(gomega.Equal(239.84542527868626))
+	g.Expect(vector_measure.EdgeLength(data, vector_measure.EdgeCB)).To(gomega.Equal(192.01874835387844))
 	g.Expect(data.HeightFrom("A")).To(gomega.Equal(75.06238598507127))
 	g.Expect(data.ShortestDistance("A")).To(gomega.Equal(83.15313577986396))
 }
