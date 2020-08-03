@@ -8,11 +8,11 @@ type MultiPoint struct {
 	CRS         reference_system.ReferenceSystem `json:"crs"`
 }
 
-func NewMultiPoint(coordinates Coordinate2D, crs reference_system.ReferenceSystem) *MultiPoint {
+func NewMultiPoint(coordinates Coordinate2D, srid int) *MultiPoint {
 	return &MultiPoint{
 		Type:        MultiPointType,
 		Coordinates: coordinates,
-		CRS:         crs,
+		CRS:         reference_system.New(srid),
 	}
 }
 

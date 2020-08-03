@@ -8,11 +8,11 @@ type MultiPolygon struct {
 	CRS         reference_system.ReferenceSystem `json:"crs"`
 }
 
-func NewMultiPolygon(coordinates Coordinate4D, crs reference_system.ReferenceSystem) *MultiPolygon {
+func NewMultiPolygon(coordinates Coordinate4D, srid int) *MultiPolygon {
 	return &MultiPolygon{
 		Type:        MultiPolygonType,
 		Coordinates: coordinates,
-		CRS:         crs,
+		CRS:         reference_system.New(srid),
 	}
 }
 

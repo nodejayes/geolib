@@ -8,11 +8,11 @@ type MultiLine struct {
 	CRS         reference_system.ReferenceSystem `json:"crs"`
 }
 
-func NewMultiLine(coordinates Coordinate3D, crs reference_system.ReferenceSystem) *MultiLine {
+func NewMultiLine(coordinates Coordinate3D, srid int) *MultiLine {
 	return &MultiLine{
 		Type:        MultiLineType,
 		Coordinates: coordinates,
-		CRS:         crs,
+		CRS:         reference_system.New(srid),
 	}
 }
 
